@@ -1,6 +1,7 @@
 package org.echox.graphics;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
+import static org.lwjgl.opengl.GL11.GL_LINES;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
 import static org.lwjgl.opengl.GL11.glDrawElements;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
@@ -46,10 +47,14 @@ public class Mesh {
         // VBO
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-        FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertices.length);
-        vertexBuffer.put(vertices).flip();
+        /*
+        FLoatBuffer, IntBuffer is LWJGL class and handles pointers by itself
+        e.g. while calling glBufferData()
+        */
+        FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertices.length); // allocating a native memory
+        vertexBuffer.put(vertices).flip(); // uploading data from heap to native memory
 
-        glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW); // reads from native memory automatically
 
         // EBO
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -62,6 +67,9 @@ public class Mesh {
         glEnableVertexAttribArray(0);
 
         glBindVertexArray(0);
+
+        MemoryUtil.memFree(vertexBuffer);
+        MemoryUtil.memFree(indexBuffer);
     }
 
     public void render() {

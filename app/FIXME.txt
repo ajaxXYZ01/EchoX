@@ -1,0 +1,2 @@
+Node3D
+    1. rotation is not clamped to range [-2pi, 2pi]
