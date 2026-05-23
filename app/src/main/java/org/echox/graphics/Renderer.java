@@ -2,7 +2,6 @@ package org.echox.graphics;
 
 import java.io.IOException;
 
-import org.echox.scene.Camera3D;
 import org.echox.scene.Scene;
 
 public class Renderer {
@@ -19,17 +18,15 @@ public class Renderer {
             BASIC_SHADER = new Shader(
                 "app\\src\\main\\resources\\shaders\\basic.vert",
                 "app\\src\\main\\resources\\shaders\\basic.frag");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        } catch (IOException e) { e.printStackTrace(); }
+        
     }
 
-    public void render(Scene scene, Camera3D camera) {
+    public void render(Scene scene) {
 
         BASIC_SHADER.use();
-        BASIC_SHADER.setMatrix4f("view", camera.getViewMatrix());
-        BASIC_SHADER.setMatrix4f("projection", camera.getProjectionMatrix());
+        BASIC_SHADER.setMatrix4f("view", scene.getActiveCamera().getViewMatrix());
+        BASIC_SHADER.setMatrix4f("projection", scene.getActiveCamera().getProjectionMatrix());
         scene.getRoot()._render(this);
 
     }

@@ -16,8 +16,9 @@ public class Main {
             "EchoX",
             DEFAULT_RENDERER
         );
-
-        window.run(DEFAULT_SCENE, DEFAULT_CAMERA);
+        
+        DEFAULT_SCENE.setActiveCamera(DEFAULT_CAMERA);
+        window.run(DEFAULT_SCENE);
     }
     
 }

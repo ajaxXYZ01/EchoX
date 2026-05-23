@@ -67,7 +67,11 @@ public class Camera3D extends Node3D {
     // --------------------------------
 
     public void UpdateViewMatrix() {
-        view.identity();
+        view.identity()
+            .rotateX(-rotation.x)
+            .rotateY(-rotation.y)
+            .rotateZ(-rotation.z)
+            .translate(-position.x, -position.y, -position.z);
     }
 
     public void UpdateProjectionMatrix() {

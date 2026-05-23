@@ -4,7 +4,6 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 import org.echox.graphics.Renderer;
-import org.echox.scene.Camera3D;
 import org.echox.scene.Scene;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -18,6 +17,8 @@ public class Window {
     Renderer current_renderer;
 
     public Window(String title, Renderer renderer) {
+
+        this.current_renderer = renderer;
 
         int width  = renderer.getResolutionX();
         int height = renderer.getResolutionY();
@@ -58,7 +59,7 @@ public class Window {
 
     }
 
-    public void run(Scene scene, Camera3D camera) {
+    public void run(Scene scene) {
         
         double last_time = glfwGetTime();
 
@@ -72,7 +73,7 @@ public class Window {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             update(scene, delta_time);
-            draw(scene, camera);
+            draw(scene);
 
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -84,9 +85,9 @@ public class Window {
     public void update(Scene scene, double delta_time) {
         scene._physics_update_scene_tree(delta_time);
     }
-
-    public void draw(Scene scene, Camera3D camera) {
-        current_renderer.render(scene, camera);
+    
+    public void draw(Scene scene) {
+        current_renderer.render(scene);
     }
     
 }

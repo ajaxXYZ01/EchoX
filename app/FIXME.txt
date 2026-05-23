@@ -1,2 +1,9 @@
 Node3D
     1. rotation is not clamped to range [-2pi, 2pi]
+
+EchoX:
+    1. transformations doesnt propagate through node. global transform
+
+Renderer:
+    1. uses hardcoded shader now, but will require to use object material which will haves it own shader
+

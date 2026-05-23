@@ -14,6 +14,8 @@ public class Node3D extends Node {
 
     public Node3D() {
 
+        super();
+
         position = new Vector3f(0.0f, 0.0f, 0.0f);
         rotation = new Vector3f(0.0f, 0.0f, 0.0f);
         scale    = new Vector3f(1.0f, 1.0f, 1.0f);
@@ -38,44 +40,58 @@ public class Node3D extends Node {
     }
 
     // rotating local rotation
-    public void rotate_x(float x_rads) { rotation.x += x_rads; }
-    public void rotate_y(float y_rads) { rotation.y += y_rads; }
-    public void rotate_z(float z_rads) { rotation.z += z_rads; }
+    public void rotateX(float x_rads) { rotation.x += x_rads; }
+    public void rotateY(float y_rads) { rotation.y += y_rads; }
+    public void rotateZ(float z_rads) { rotation.z += z_rads; }
 
     public void rotate(float x_rads, float y_rads, float z_rads) {
-        rotate_x(x_rads);
-        rotate_y(y_rads);
-        rotate_z(z_rads);
+        rotateX(x_rads);
+        rotateY(y_rads);
+        rotateZ(z_rads);
     }
 
     // scaling local scale
-    public void scale_x(float scale_x) { scale.x *= scale_x; }
-    public void scale_y(float scale_y) { scale.y *= scale_y; }
-    public void scale_z(float scale_z) { scale.z *= scale_z; }
+    public void scaleX(float scale_x) { scale.x *= scale_x; }
+    public void scaleY(float scale_y) { scale.y *= scale_y; }
+    public void scaleZ(float scale_z) { scale.z *= scale_z; }
 
     public void scale(float scale_x, float scale_y, float scale_z) {
-        scale_x(scale_x);
-        scale_y(scale_y);
-        scale_z(scale_z);
+        scaleX(scale_x);
+        scaleY(scale_y);
+        scaleZ(scale_z);
     }
 
-    public void set_scale_x(float scale_x) { scale.x = scale_x; }
-    public void set_scale_y(float scale_y) { scale.y = scale_y; }
-    public void set_scale_z(float scale_z) { scale.z = scale_z; }
+    public void setScaleX(float scale_x) { scale.x = scale_x; }
+    public void setScaleY(float scale_y) { scale.y = scale_y; }
+    public void setScaleZ(float scale_z) { scale.z = scale_z; }
 
     public void set_scale(float scale_x, float scale_y, float scale_z) {
-        set_scale_x(scale_x);
-        set_scale_y(scale_y);
-        set_scale_z(scale_z);
+        setScaleX(scale_x);
+        setScaleY(scale_y);
+        setScaleZ(scale_z);
     }
+
+    public void UpdateModelMatrix() {
+        model.identity()
+            .translate(position)
+            .rotateX(rotation.x)
+            .rotateY(rotation.y)
+            .rotateZ(rotation.z)
+            .scale(scale);
+    }
+
+    // --------------------------------
+    // OVERRIDES
+    // --------------------------------
 
     @Override
     public void _physics_update(double delta_time) {
-        
+        super._physics_update(delta_time);
     }
 
     @Override
     public void _render(Renderer renderer) {
+        super._render(renderer);
         // maybe we can render its local axis here
     }
 
