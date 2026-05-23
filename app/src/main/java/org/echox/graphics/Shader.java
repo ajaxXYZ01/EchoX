@@ -4,8 +4,6 @@ import static org.lwjgl.opengl.GL20.*;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
@@ -16,8 +14,17 @@ public class Shader {
 
     public Shader(String vertex_shader_source_path, String fragment_shader_source_path) throws IOException {
 
-        String vertex_shader_source_code   = Files.readString(Path.of(vertex_shader_source_path));
-        String fragment_shader_source_code = Files.readString(Path.of(fragment_shader_source_path));
+        String vertex_shader_source_code   = new String(
+            getClass().getClassLoader()
+                .getResourceAsStream(vertex_shader_source_path)
+                .readAllBytes()
+        );
+
+        String fragment_shader_source_code = new String(
+            getClass().getClassLoader()
+                .getResourceAsStream(fragment_shader_source_path)
+                .readAllBytes()
+        );
 
         int VERTEX_SHADER_ID = glCreateShader(GL_VERTEX_SHADER);
         int FRAGMENT_SHADER_ID = glCreateShader(GL_FRAGMENT_SHADER);

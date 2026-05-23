@@ -7,7 +7,7 @@ repositories {
 }
 
 ext {
-    lwjglVersion = "3.3.3"
+    lwjglVersion = "3.4.1"
 }
 
 dependencies {

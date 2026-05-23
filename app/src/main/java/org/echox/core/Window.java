@@ -36,6 +36,8 @@ public class Window {
         glfwMakeContextCurrent(window);
         GL.createCapabilities();
 
+        current_renderer.init();
+
         glViewport(0, 0, width, height);
         glEnable(GL_DEPTH_TEST);
         glfwSwapInterval(1); // Enable VSync

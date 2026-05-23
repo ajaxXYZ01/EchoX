@@ -10,16 +10,16 @@ public class Renderer {
     Shader BASIC_SHADER;
 
     public Renderer() {
-
         resolution_x = 800;
         resolution_y = 600;
+    }
 
+    public void init() {
         try {
             BASIC_SHADER = new Shader(
-                "app\\src\\main\\resources\\shaders\\basic.vert",
-                "app\\src\\main\\resources\\shaders\\basic.frag");
+                "shaders/basic.vert",
+                "shaders/basic.frag");
         } catch (IOException e) { e.printStackTrace(); }
-        
     }
 
     public void render(Scene scene) {
