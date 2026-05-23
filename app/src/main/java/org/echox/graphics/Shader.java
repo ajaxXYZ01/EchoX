@@ -3,8 +3,12 @@ package org.echox.graphics;
 import static org.lwjgl.opengl.GL20.*;
 
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 
 public class Shader {
 
@@ -43,6 +47,13 @@ public class Shader {
 
     public void use() {
         glUseProgram(SHADER_PROGRAM_ID);
+    }
+
+    public void setMatrix4f(String uniform_name, Matrix4f matrix) {
+        int location = glGetUniformLocation(SHADER_PROGRAM_ID, uniform_name);
+        FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
+        matrix.get(buffer);
+        glUniformMatrix4fv(location, false, buffer);
     }
 
 }

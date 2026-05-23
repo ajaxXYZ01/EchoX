@@ -54,14 +54,14 @@ public class Mesh {
         FloatBuffer vertexBuffer = MemoryUtil.memAllocFloat(vertices.length); // allocating a native memory
         vertexBuffer.put(vertices).flip(); // uploading data from heap to native memory
 
-        glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW); // reads from native memory automatically
+        glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW); // reads from native memory automatically
 
         // EBO
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         IntBuffer indexBuffer = MemoryUtil.memAllocInt(indices.length);
         indexBuffer.put(indices).flip();
             
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * Float.BYTES, 0);
         glEnableVertexAttribArray(0);

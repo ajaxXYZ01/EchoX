@@ -1,5 +1,6 @@
 package org.echox.scene;
 
+import org.echox.graphics.Renderer;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -11,13 +12,13 @@ public class Node3D extends Node {
 
     protected Matrix4f model;
 
-    public Node3D(Node parent) {
-
-        super(parent);
+    public Node3D() {
 
         position = new Vector3f(0.0f, 0.0f, 0.0f);
         rotation = new Vector3f(0.0f, 0.0f, 0.0f);
         scale    = new Vector3f(1.0f, 1.0f, 1.0f);
+
+        model = new Matrix4f();
 
     }
 
@@ -66,6 +67,16 @@ public class Node3D extends Node {
         set_scale_x(scale_x);
         set_scale_y(scale_y);
         set_scale_z(scale_z);
+    }
+
+    @Override
+    public void _physics_update(double delta_time) {
+        
+    }
+
+    @Override
+    public void _render(Renderer renderer) {
+        // maybe we can render its local axis here
     }
 
 }

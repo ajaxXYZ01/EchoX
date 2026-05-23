@@ -3,9 +3,9 @@ package org.echox.core;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-import java.io.IOException;
-
-import org.echox.graphics.Shader;
+import org.echox.graphics.Renderer;
+import org.echox.scene.Camera3D;
+import org.echox.scene.Scene;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -15,9 +15,12 @@ public class Window {
     private long window;
     double delta_time;
 
-    Shader BasicShader;
+    Renderer current_renderer;
 
-    public Window(String title, int width, int height) {
+    public Window(String title, Renderer renderer) {
+
+        int width  = renderer.getResolutionX();
+        int height = renderer.getResolutionY();
 
         if (!glfwInit()) {
             throw new IllegalStateException("GLFW failed to initialize");
@@ -34,7 +37,7 @@ public class Window {
 
         glViewport(0, 0, width, height);
         glEnable(GL_DEPTH_TEST);
-        glfwSwapInterval(1); // Anti-aliasing ON
+        glfwSwapInterval(1); // Enable VSync
 
         GLFW.glfwShowWindow(window);
         glClearColor(0.025f, 0.025f, 0.025f, 1.0f);
@@ -53,20 +56,11 @@ public class Window {
             glViewport(0, 0, w, h);
         });
 
-        try {
-            BasicShader = new Shader(
-                "app\\src\\main\\resources\\shaders\\basic.vert",
-                "app\\src\\main\\resources\\shaders\\basic.frag");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void run() {
+    public void run(Scene scene, Camera3D camera) {
         
         double last_time = glfwGetTime();
-
-        BasicShader.use();
 
         while (!glfwWindowShouldClose(window)) {
 
@@ -77,7 +71,8 @@ public class Window {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            draw();
+            update(scene, delta_time);
+            draw(scene, camera);
 
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -86,8 +81,12 @@ public class Window {
         glfwTerminate();
     }
 
-    public void draw() {
-        
+    public void update(Scene scene, double delta_time) {
+        scene._physics_update_scene_tree(delta_time);
     }
 
+    public void draw(Scene scene, Camera3D camera) {
+        current_renderer.render(scene, camera);
+    }
+    
 }

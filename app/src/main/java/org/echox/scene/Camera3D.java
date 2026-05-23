@@ -4,14 +4,13 @@ import org.joml.Matrix4f;
 
 public class Camera3D extends Node3D {
 
-    float fov;          // in radians
-    float zNear, zFar;  // in world units
-    float aspect_ratio;
+    private float fov;          // in radians
+    private float zNear, zFar;  // in world units
+    private float aspect_ratio;
 
-    Matrix4f view, projection;
+    private Matrix4f view, projection;
 
-    public Camera3D(Node parent) {
-        super(parent);
+    public Camera3D() {
 
         fov = (float) Math.toRadians(45d);
         zNear = 0.1f;
@@ -31,8 +30,27 @@ public class Camera3D extends Node3D {
 
     }
 
+    // --------------------------------
+    // GETTERS
+    // --------------------------------
+
+    public Matrix4f getViewMatrix() { return view; }
+    public Matrix4f getProjectionMatrix() { return projection; }
+
+    public float getFOV_Degrees() {
+        return (float) Math.toDegrees(fov);
+    }
+
+    public float getFOV_Radians() {
+        return fov;
+    }
+
+    // --------------------------------
+    // SETTERS
+    // --------------------------------
+
     public void setFOV(float fov) {
-        if (fov < 0 || fov > 90) {
+        if (fov < 0 || fov > Math.toRadians(90)) {
             System.out.println("Camera3D: fov out of range [0, 90]");
             return;
         }
@@ -44,12 +62,16 @@ public class Camera3D extends Node3D {
     public void setZNear(float zNear) { this.zNear = zNear; }
     public void setZFar(float zFar) { this.zFar = zFar; }
 
-    public void UpdateViewMatrix() {
+    // --------------------------------
+    // UPDATE METHODS
+    // --------------------------------
 
+    public void UpdateViewMatrix() {
+        view.identity();
     }
 
     public void UpdateProjectionMatrix() {
-        projection.perspective(
+        projection.identity().perspective(
             fov,
             aspect_ratio,
             zNear,
