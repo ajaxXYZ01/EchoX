@@ -1,7 +1,6 @@
 package org.echox.graphics;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
-import static org.lwjgl.opengl.GL11.GL_LINES;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
 import static org.lwjgl.opengl.GL11.glDrawElements;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
@@ -25,8 +24,8 @@ public class Mesh {
     flat array of floating point numbers
     representing 3D coordinates of each vertex [x1, y1, z1, x2, y2, z2, x3, y3, z3, ... ]
      */
-    float vertices [];
-    int indices[];
+    protected float vertices [];
+    protected int indices[];
     int VAO, VBO, EBO; // Vertex Array Object ID, Vertex Buffer Object ID
 
     public Mesh(float vertices[], int indices[]) {
@@ -74,7 +73,7 @@ public class Mesh {
 
     public void render() {
         glBindVertexArray(VAO);
-        glDrawElements(GL_LINES, indices.length, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
 

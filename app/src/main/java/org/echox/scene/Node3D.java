@@ -71,6 +71,14 @@ public class Node3D extends Node {
         setScaleZ(scale_z);
     }
 
+    // --------------------------------
+    // GETTERS
+    // --------------------------------
+
+    public Vector3f getPosition() { return position; }
+    public Vector3f getRotation() { return rotation; }
+    public Vector3f getScale() { return scale; }
+
     public void UpdateModelMatrix() {
         model.identity()
             .translate(position)

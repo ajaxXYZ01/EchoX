@@ -17,7 +17,7 @@ public class Window {
     Renderer current_renderer;
 
     public Window(String title, Renderer renderer) {
-
+        
         this.current_renderer = renderer;
 
         int width  = renderer.getResolutionX();
@@ -42,7 +42,9 @@ public class Window {
         glEnable(GL_DEPTH_TEST);
         glfwSwapInterval(1); // Enable VSync
 
-        GLFW.glfwShowWindow(window);
+
+        glfwFocusWindow(window);
+        glfwShowWindow(window);
         glClearColor(0.025f, 0.025f, 0.025f, 1.0f);
 
         // Centering the window
