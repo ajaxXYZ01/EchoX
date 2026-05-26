@@ -8,11 +8,11 @@ import org.echox.scene.primitives.Cube;
 public class Main {
 
     public static void main(String args[]) {
-
+        
         Renderer DEFAULT_RENDERER   = new Renderer();
         Scene DEFAULT_SCENE = new Scene();
         Camera3D DEFAULT_CAMERA = new Camera3D();
-        
+
         Window window = new Window(
             "EchoX",
             DEFAULT_RENDERER
@@ -26,13 +26,13 @@ public class Main {
             }
         };
 
-        /*
-        Fun fact!
-        What is common between this Code and Monika?
-        They are both annoying! XD
-         */
+        Cube cube2 = new Cube();
+
+        cube2.translate(1, 1, 1);
+        cube2.UpdateModelMatrix();
 
         DEFAULT_SCENE.addNode(cube);
+        DEFAULT_SCENE.addNode(cube2);
 
         DEFAULT_CAMERA.rotate(45, 0, 45);
         DEFAULT_CAMERA.translate(3, -2, 2);
@@ -42,6 +42,7 @@ public class Main {
         DEFAULT_CAMERA.UpdateViewMatrix();
 
         DEFAULT_SCENE.setActiveCamera(DEFAULT_CAMERA);
+
         window.run(DEFAULT_SCENE);
 
     }

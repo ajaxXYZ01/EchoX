@@ -9,6 +9,12 @@ public class Renderer {
     private int resolution_x, resolution_y;
     Shader BASIC_SHADER;
 
+    // enum RenderMode {
+    //     WIREFRAME,
+    //     FLAT,
+    //     SMOOTH
+    // }
+
     public Renderer() {
         resolution_x = 800;
         resolution_y = 600;
@@ -17,8 +23,8 @@ public class Renderer {
     public void init() {
         try {
             BASIC_SHADER = new Shader(
-                "shaders/basic.vert",
-                "shaders/basic.frag");
+                "shaders/flat_shader.vert",
+                "shaders/flat_shader.frag");
         } catch (IOException e) { e.printStackTrace(); }
     }
 

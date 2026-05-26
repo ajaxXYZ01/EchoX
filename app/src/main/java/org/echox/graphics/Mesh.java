@@ -71,6 +71,8 @@ public class Mesh {
         MemoryUtil.memFree(indexBuffer);
     }
 
+    
+
     public void render() {
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);

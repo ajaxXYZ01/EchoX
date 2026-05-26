@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.FloatBuffer;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
 public class Shader {
@@ -63,4 +64,8 @@ public class Shader {
         glUniformMatrix4fv(location, false, buffer);
     }
 
+    public void setVector3f(String uniform_name, Vector3f vector) {
+        int location = glGetUniformLocation(SHADER_PROGRAM_ID, uniform_name);
+        glUniform3f(location, vector.x, vector.y, vector.z);
+    }
 }
