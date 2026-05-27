@@ -1,8 +1,17 @@
 #version 330 core
 
+in vec3 fragment_normal;
+
 out vec4 color;
-out vec3 view_direction;
+
+uniform vec3 light_direction;
+uniform float ambient_strength;
 
 void main() {
-    color = vec4(1.0, 1.0, 1.0, 1.0);
+
+    float light = dot(normalize(fragment_normal), -light_direction) + ambient_strength;
+
+    light = max(light, 0.0);
+    
+    color = vec4(vec3(light), 1.0);
 }

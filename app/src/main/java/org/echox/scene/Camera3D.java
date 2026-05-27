@@ -1,6 +1,7 @@
 package org.echox.scene;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 public class Camera3D extends Node3D {
 
@@ -9,6 +10,7 @@ public class Camera3D extends Node3D {
     private float aspect_ratio;
 
     private Matrix4f view, projection;
+    private Vector3f forward;
 
     public Camera3D() {
 
@@ -19,6 +21,7 @@ public class Camera3D extends Node3D {
 
         view = new Matrix4f();
         projection = new Matrix4f();
+        forward = new Vector3f();
 
         view.identity();
         projection.perspective(
@@ -27,7 +30,6 @@ public class Camera3D extends Node3D {
             zNear,
             zFar
         );
-
     }
 
     // --------------------------------
@@ -44,6 +46,8 @@ public class Camera3D extends Node3D {
     public float getFOV_Radians() {
         return fov;
     }
+
+    public Vector3f getForward() { return forward; }
 
     // --------------------------------
     // SETTERS
@@ -65,6 +69,12 @@ public class Camera3D extends Node3D {
     // --------------------------------
     // UPDATE METHODS
     // --------------------------------
+
+    @Override
+    public void UpdateModelMatrix() {
+        super.UpdateModelMatrix();
+        forward.set(-localZ.x, -localZ.y, -localZ.z);
+    }
 
     public void UpdateViewMatrix() {
         view.identity()

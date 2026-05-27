@@ -9,9 +9,9 @@ public class Main {
 
     public static void main(String args[]) {
         
-        Renderer DEFAULT_RENDERER   = new Renderer();
-        Scene DEFAULT_SCENE = new Scene();
-        Camera3D DEFAULT_CAMERA = new Camera3D();
+        Renderer DEFAULT_RENDERER = new Renderer();
+        Scene    DEFAULT_SCENE    = new Scene();
+        Camera3D DEFAULT_CAMERA   = new Camera3D();
 
         Window window = new Window(
             "EchoX",
@@ -25,17 +25,11 @@ public class Main {
                 UpdateModelMatrix();
             }
         };
-
-        Cube cube2 = new Cube();
-
-        cube2.translate(1, 1, 1);
-        cube2.UpdateModelMatrix();
-
+        
         DEFAULT_SCENE.addNode(cube);
-        DEFAULT_SCENE.addNode(cube2);
 
         DEFAULT_CAMERA.rotate(45, 0, 45);
-        DEFAULT_CAMERA.translate(3, -2, 2);
+        DEFAULT_CAMERA.translate(6, -4, 4);
 
         DEFAULT_CAMERA.UpdateModelMatrix();
         DEFAULT_CAMERA.UpdateProjectionMatrix();

@@ -7,6 +7,7 @@ import org.echox.scene.Scene;
 public class Renderer {
 
     private int resolution_x, resolution_y;
+
     Shader BASIC_SHADER;
 
     // enum RenderMode {
@@ -31,10 +32,13 @@ public class Renderer {
     public void render(Scene scene) {
 
         BASIC_SHADER.use();
+        // take this to Shader class so each know how to render itself. pass nessecerry parameters
         BASIC_SHADER.setMatrix4f("view", scene.getActiveCamera().getViewMatrix());
         BASIC_SHADER.setMatrix4f("projection", scene.getActiveCamera().getProjectionMatrix());
-        scene.getRoot()._render(this);
+        BASIC_SHADER.setVector3f("light_direction", scene.getActiveCamera().getForward());
+        BASIC_SHADER.setFloat("ambient_strength", scene.getAmbientStrength());
 
+        scene.getRoot()._render(this);
     }
 
     public int getResolutionX() { return resolution_x; }

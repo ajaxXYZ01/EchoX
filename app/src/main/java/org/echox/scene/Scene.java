@@ -7,11 +7,12 @@ public class Scene {
     private Node ROOT_NODE;
     private Camera3D active_camera;
 
-    float ambient_intensity;
+    float ambient_strength;
     Vector3f ambient_color;
 
     public Scene() {
         ROOT_NODE = new Node();
+        ambient_strength = 0.1f;
     }
 
     public Node getRoot() { return ROOT_NODE; }
@@ -36,7 +37,7 @@ public class Scene {
         ROOT_NODE._physics_update(delta_time);
     }
 
-    public float getAmbient() { return ambient_intensity; }
+    public float getAmbientStrength() { return ambient_strength; }
     public Vector3f getAmbientColor() { return ambient_color; }
 
 }

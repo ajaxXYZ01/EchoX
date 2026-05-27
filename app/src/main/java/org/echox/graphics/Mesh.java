@@ -62,8 +62,25 @@ public class Mesh {
             
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * Float.BYTES, 0);
+        glVertexAttribPointer(
+            0,
+            3,
+            GL_FLOAT,
+            false,
+            6 * Float.BYTES,
+            0
+        );
         glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(
+            1,
+            3,
+            GL_FLOAT,
+            false,
+            6 * Float.BYTES,
+            3 * Float.BYTES
+        );
+        glEnableVertexAttribArray(1);
 
         glBindVertexArray(0);
 
