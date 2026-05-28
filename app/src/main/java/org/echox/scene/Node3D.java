@@ -27,10 +27,8 @@ public class Node3D extends Node {
         localY = new Vector3f(0, 1, 0);
         localZ = new Vector3f(0, 0, 1);
 
-        rotation_matrix = new Matrix4f();
-
         model = new Matrix4f();
-
+        rotation_matrix = new Matrix4f();
     }
 
     // --------------------------------

@@ -36,7 +36,10 @@ public class Renderer {
         BASIC_SHADER.setMatrix4f("view", scene.getActiveCamera().getViewMatrix());
         BASIC_SHADER.setMatrix4f("projection", scene.getActiveCamera().getProjectionMatrix());
         BASIC_SHADER.setVector3f("light_direction", scene.getActiveCamera().getForward());
+
+        // note: setting value every frame !!!
         BASIC_SHADER.setFloat("ambient_strength", scene.getAmbientStrength());
+        BASIC_SHADER.setVector3f("ambient_color", scene.getAmbientColor());
 
         scene.getRoot()._render(this);
     }

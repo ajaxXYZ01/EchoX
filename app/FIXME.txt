@@ -7,4 +7,6 @@ EchoX:
 Renderer:
     1. uses hardcoded shader now, but will require to use object material which will haves it own shader
     2. setting ambient_strength every render
+    3. setting ambient_color every frame
+    4. setting light_dir every frame
 

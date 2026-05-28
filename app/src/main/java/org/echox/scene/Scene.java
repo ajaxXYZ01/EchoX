@@ -1,5 +1,6 @@
 package org.echox.scene;
 
+import org.echox.core.InputManager;
 import org.joml.Vector3f;
 
 public class Scene {
@@ -13,6 +14,7 @@ public class Scene {
     public Scene() {
         ROOT_NODE = new Node();
         ambient_strength = 0.1f;
+        ambient_color = new Vector3f(0.5f, 0.5f, 0.5f);
     }
 
     public Node getRoot() { return ROOT_NODE; }
@@ -32,12 +34,16 @@ public class Scene {
     }
 
     public Camera3D getActiveCamera() { return active_camera; }
-
-    public void _physics_update_scene_tree(double delta_time) {
-        ROOT_NODE._physics_update(delta_time);
-    }
-
     public float getAmbientStrength() { return ambient_strength; }
     public Vector3f getAmbientColor() { return ambient_color; }
+
+    public void _update_input_scene_tree(InputManager input) {
+        ROOT_NODE._input(input);
+        
+    }
+
+    public void _update_physics_scene_tree(double delta_time) {
+        ROOT_NODE._physics_update(delta_time);
+    }
 
 }

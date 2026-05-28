@@ -2,6 +2,7 @@ package org.echox.scene;
 
 import java.util.ArrayList;
 
+import org.echox.core.InputManager;
 import org.echox.graphics.Renderer;
 
 public class Node {
@@ -25,6 +26,16 @@ public class Node {
     public void removeChild(Node child) {
         child.parent = null;
         children.remove(child);
+    }
+
+    // --------------------------------
+    // 
+    // --------------------------------
+
+    public void _input(InputManager input) {
+        for (Node node : children) {
+            node._input(input);
+        }
     }
 
     public void _physics_update(double delta_time) {

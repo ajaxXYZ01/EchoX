@@ -1,0 +1,5 @@
+1. Default/Viewport/Orbit/FPS camera {
+    
+    1. Fly/ FPS mode: rotate around using camera and move with WASD
+    2. orbit mode controlled by scroll to zoom-in/out, pan around with keys and mouse
+}

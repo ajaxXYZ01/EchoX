@@ -19,7 +19,7 @@ import java.nio.IntBuffer;
 import org.lwjgl.system.MemoryUtil;
 
 public class Mesh {
-    
+
     /*
     flat array of floating point numbers
     representing 3D coordinates of each vertex [x1, y1, z1, x2, y2, z2, x3, y3, z3, ... ]

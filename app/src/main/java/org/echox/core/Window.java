@@ -12,6 +12,8 @@ import org.lwjgl.opengl.GL;
 public class Window {
 
     private long window;
+    private InputManager input;
+    
     double delta_time;
 
     Renderer current_renderer;
@@ -37,6 +39,7 @@ public class Window {
         GL.createCapabilities();
 
         current_renderer.init();
+        input = new InputManager(window);
 
         glViewport(0, 0, width, height);
         glEnable(GL_DEPTH_TEST);
@@ -74,24 +77,36 @@ public class Window {
             delta_time = current_time - last_time;
             last_time = current_time;
 
+            glfwPollEvents();
+
+            input.update();
+
+            input(scene, this.input);
+
+            update_physics(scene, delta_time);
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            update(scene, delta_time);
             draw(scene);
-
-            glfwSwapBuffers(window);
-            glfwPollEvents();
         }
 
         glfwTerminate();
+        glfwDestroyWindow(window);
     }
 
-    public void update(Scene scene, double delta_time) {
-        scene._physics_update_scene_tree(delta_time);
+    public void input(Scene scene, InputManager input) {
+        scene._update_input_scene_tree(input);
+    }
+    
+    public void update_physics(Scene scene, double delta_time) {
+        scene._update_physics_scene_tree(delta_time);
     }
     
     public void draw(Scene scene) {
         current_renderer.render(scene);
+        glfwSwapBuffers(window);
     }
+
+    public InputManager getInputManager() { return input; }
     
 }
