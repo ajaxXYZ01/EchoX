@@ -1,7 +1,6 @@
 package org.echox;
 
 import org.echox.core.Window;
-import org.echox.editor.EditorCamera;
 import org.echox.graphics.Renderer;
 import org.echox.scene.Scene;
 import org.echox.scene.primitives.Cube;
@@ -12,7 +11,6 @@ public class Main {
         
         Renderer DEFAULT_RENDERER  = new Renderer();
         Scene    DEFAULT_SCENE     = new Scene();
-        EditorCamera EDITOR_CAMERA = new EditorCamera();
 
         Window window = new Window(
             "EchoX",
@@ -28,7 +26,6 @@ public class Main {
         };
 
         DEFAULT_SCENE.addNode(cube);
-        DEFAULT_SCENE.setActiveCamera(EDITOR_CAMERA);
 
         window.run(DEFAULT_SCENE);
 

@@ -39,7 +39,7 @@ public class Scene {
 
     public void _update_input_scene_tree(InputManager input) {
         ROOT_NODE._input(input);
-        
+        active_camera._input(input);
     }
 
     public void _update_physics_scene_tree(double delta_time) {

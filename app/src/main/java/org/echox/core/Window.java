@@ -3,7 +3,9 @@ package org.echox.core;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+import org.echox.editor.EditorCamera;
 import org.echox.graphics.Renderer;
+import org.echox.scene.Camera3D;
 import org.echox.scene.Scene;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -17,6 +19,7 @@ public class Window {
     double delta_time;
 
     Renderer current_renderer;
+    private Camera3D current_camera;
 
     public Window(String title, Renderer renderer) {
         
@@ -39,6 +42,16 @@ public class Window {
         GL.createCapabilities();
 
         current_renderer.init();
+
+        // ---- Editor camera ----
+        current_camera = new EditorCamera();
+        current_camera.rotate((float) Math.toRadians(45), 0, (float) Math.toRadians(45));
+        current_camera.setPosition(3, -3, 4);
+        
+        current_camera.UpdateModelMatrix();
+        current_camera.UpdateViewMatrix();
+        current_camera.UpdateProjectionMatrix();
+
         input = new InputManager(window);
 
         glViewport(0, 0, width, height);
@@ -70,9 +83,11 @@ public class Window {
         
         double last_time = glfwGetTime();
 
+        scene.setActiveCamera(current_camera);
+
         while (!glfwWindowShouldClose(window)) {
 
-            // computing delta time
+            // ---- Computing delta time ----
             double current_time = glfwGetTime();
             delta_time = current_time - last_time;
             last_time = current_time;
@@ -82,6 +97,7 @@ public class Window {
             input.update();
 
             input(scene, this.input);
+            current_camera._input(input);
 
             update_physics(scene, delta_time);
 
